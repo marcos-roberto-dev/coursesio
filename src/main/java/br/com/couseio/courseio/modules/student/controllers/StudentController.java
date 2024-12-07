@@ -1,43 +1,29 @@
 package br.com.couseio.courseio.modules.student.controllers;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.couseio.courseio.modules.student.dtos.RequestCreateStudent;
-import br.com.couseio.courseio.modules.student.entities.StudentEntity;
-import br.com.couseio.courseio.modules.student.respositories.StudentRepository;
+import br.com.couseio.courseio.modules.student.dtos.RequestCreateStudentDTO;
+import br.com.couseio.courseio.modules.student.services.CreateStudentService;
 
 @RestController
 @RequestMapping("/api/v1/student")
 public class StudentController {
 
-    private final StudentRepository studentRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final CreateStudentService createStudentService;
 
-    public StudentController(StudentRepository studentRepository, PasswordEncoder passwordEncoder) {
-        this.studentRepository = studentRepository;
-        this.passwordEncoder = passwordEncoder;
+    public StudentController(CreateStudentService createStudentService) {
+        this.createStudentService = createStudentService;
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> create(@RequestBody RequestCreateStudent entity) {
-
+    public ResponseEntity<Object> create(@RequestBody RequestCreateStudentDTO requestStudent) {
         try {
-            var student = StudentEntity.builder()
-                    .name(entity.getName())
-                    .email(entity.getEmail())
-                    .username(entity.getUsername())
-                    .password(this.passwordEncoder.encode(entity.getPassword()))
-                    .register(entity.getRegister())
-                    .build();
-
-            this.studentRepository.save(student);
-
-            return ResponseEntity.ok("Student created");
+            var responseEntity = this.createStudentService.execute(requestStudent);
+            return ResponseEntity.ok(responseEntity);
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());

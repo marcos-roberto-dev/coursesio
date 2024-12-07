@@ -41,7 +41,7 @@ public class StudentEntity {
     private String username;
 
     @NotBlank
-    @Length(min = 3, max = 50)
+    @Length(min = 3, max = 100)
     private String password;
 
     @NotBlank

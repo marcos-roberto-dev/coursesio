@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class RequestCreateStudent {
+public class RequestCreateStudentDTO {
     @NotBlank
     @Length(min = 3, max = 50)
     private String name;

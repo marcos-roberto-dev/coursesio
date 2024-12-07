@@ -19,7 +19,7 @@ public class CreateStudentService {
     }
 
     public ResponseCreateStudentDTO execute(RequestCreateStudentDTO requestStudent) {
-        var student = StudentEntity.builder()
+        var studentEntityBuilder = StudentEntity.builder()
                 .name(requestStudent.getName())
                 .email(requestStudent.getEmail())
                 .username(requestStudent.getUsername())
@@ -27,11 +27,13 @@ public class CreateStudentService {
                 .register(requestStudent.getRegister())
                 .build();
 
+        var studentEntityRepository = this.studentRepository.save(studentEntityBuilder);
+
         return ResponseCreateStudentDTO.builder()
-                .name(student.getName())
-                .email(student.getEmail())
-                .username(student.getUsername())
-                .register(student.getRegister())
+                .name(studentEntityRepository.getName())
+                .email(studentEntityRepository.getEmail())
+                .username(studentEntityRepository.getUsername())
+                .register(studentEntityRepository.getRegister())
                 .build();
     }
 }

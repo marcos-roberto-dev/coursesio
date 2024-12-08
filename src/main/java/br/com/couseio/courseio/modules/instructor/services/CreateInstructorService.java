@@ -30,6 +30,7 @@ public class CreateInstructorService {
         var instructorEntityRepository = instructorRepository.save(instructorEntityBuilder);
 
         return ResponseCreateInstructorDTO.builder()
+                .id(instructorEntityRepository.getId())
                 .name(instructorEntityRepository.getName())
                 .email(instructorEntityRepository.getEmail())
                 .username(instructorEntityRepository.getUsername())

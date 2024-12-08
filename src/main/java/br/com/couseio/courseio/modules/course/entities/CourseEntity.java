@@ -46,11 +46,11 @@ public class CourseEntity {
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", nullable = false)
-    private InstructorEntity instructor;
+    private InstructorEntity instructorId;
 
     @ManyToMany
     @JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<StudentEntity> students;
+    private List<StudentEntity> studentsId;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

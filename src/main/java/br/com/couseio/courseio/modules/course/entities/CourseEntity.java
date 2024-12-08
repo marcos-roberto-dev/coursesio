@@ -1,4 +1,4 @@
-package br.com.couseio.courseio.modules.couse.entities;
+package br.com.couseio.courseio.modules.course.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;

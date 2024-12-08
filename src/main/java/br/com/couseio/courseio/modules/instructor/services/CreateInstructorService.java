@@ -19,21 +19,21 @@ public class CreateInstructorService {
     }
 
     public ResponseCreateInstructorDTO execute(RequestCreateInstructorDTO requestCreateInstructor) {
-        InstructorEntity instructor = InstructorEntity.builder()
+        var instructorEntityBuilder = InstructorEntity.builder()
                 .name(requestCreateInstructor.getName())
                 .email(requestCreateInstructor.getEmail())
                 .username(requestCreateInstructor.getUsername())
-                .password(passwordEncoder.encode(requestCreateInstructor.getPassword()))
+                .password(this.passwordEncoder.encode(requestCreateInstructor.getPassword()))
                 .register(requestCreateInstructor.getRegister())
                 .build();
 
-        instructorRepository.save(instructor);
+        var instructorEntityRepository = instructorRepository.save(instructorEntityBuilder);
 
         return ResponseCreateInstructorDTO.builder()
-                .name(instructor.getName())
-                .email(instructor.getEmail())
-                .username(instructor.getUsername())
-                .register(instructor.getRegister())
+                .name(instructorEntityRepository.getName())
+                .email(instructorEntityRepository.getEmail())
+                .username(instructorEntityRepository.getUsername())
+                .register(instructorEntityRepository.getRegister())
                 .build();
     }
 }

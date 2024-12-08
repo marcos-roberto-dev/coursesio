@@ -30,6 +30,7 @@ public class CreateStudentService {
         var studentEntityRepository = this.studentRepository.save(studentEntityBuilder);
 
         return ResponseCreateStudentDTO.builder()
+                .id(studentEntityRepository.getId())
                 .name(studentEntityRepository.getName())
                 .email(studentEntityRepository.getEmail())
                 .username(studentEntityRepository.getUsername())
